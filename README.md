@@ -17,13 +17,15 @@ A lightweight and versatile String Utility Package for Node.js & Browser.
     * [padStart](#padStart)
     * [padEnd](#padend)
     * [padBidirectional](#padbidirectional)
+  * [merge](#merge)
+  * [compare](#compare)
+  * [looseCompare](#loosecompare)
   
   (Coming Soon)
-  * [compare](#)
-  * [losseCompare](#)
-  * [merge](#)
   * [remove](#)
   * [looseRemove](#)
+  * [regionMatch](#)
+  * [looseRegionMatch](#)
   * [caseCoversion](#)
   * And Much More.
  * [Build](#build)
@@ -82,6 +84,32 @@ padBidirectional('world', '-', 3, 10); // '--world---'
  
 // Controlling padding distribution
 padBidirectional('example', '*', 2, 10, 0); // '**example*'
+```
+
+### merge
+Merges an array of strings into a single string using a specified separator.
+```js
+merge('-', 'apple', 'orange', 'banana'); // 'apple-orange-banana'
+
+merge(true, 'apple', 'orange'); // 'apple orange'
+ 
+merge(false, 'apple', 'orange', 'banana'); // 'appleorangebanana'
+```
+
+### compare
+Performs a strict comparison between two strings.
+```js
+compare("hello", "hello"); // true
+
+compare("abc", "ABC"); // false
+```
+
+### looseCompare
+Performs a case-insensitive loose comparison between two strings.
+```js
+looseCompare("hello", "HELLO"); // true
+
+looseCompare("abc", "123"); // false
 ```
 
 ## Build

@@ -3,7 +3,7 @@
  * @param {string | boolean} sep - The separator to use between merged strings.
  *   - Provide a string to use as a separator between strings.
  *   - Provide `false` or an empty string (`''`) for no separator.
- *   - Provide `true` for a space (' ') as the separator.
+ *   - Provide `true` for a space (`' '`) as the separator.
  * @param {string[]} strings - The array of strings to merge.
  * @returns {string} The merged string.
  *
@@ -18,9 +18,10 @@
  * The `merge` function concatenates an array of strings into a single string with the specified separator.
  * - Use `sep` as a string for a custom separator between strings.
  * - Provide `false` or an empty string (`''`) for no separator.
- * - Provide `true` for a space (' ') as the separator.
+ * - Provide `true` for a space (`' '`) as the separator.
  */
-function merge(sep: string | boolean, ...strings: string[]): string {
+function merge(sep: string | boolean, ...strings: string[] | string[][]): string {
+    strings = strings.flat()
     for (let i = 0, val = ''; i < strings.length; i++) {
         if (strings.length - 1 === i) return val + strings[i]
         else if (typeof sep === 'boolean') val += sep ? strings[i] + ' ' : strings[i]

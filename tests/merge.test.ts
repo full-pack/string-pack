@@ -24,4 +24,9 @@ describe('merge Function', () => {
     test('Should handle a boolean separator (false) by no/empty separator', () => {
         expect(merge(false, 'a', 'b', 'c')).toBe('abc')
     })
+
+    test('Should handle array of string in the input', () => {
+        const arr = ['first', 'second', 'third']
+        expect(merge('-', arr)).toBe('first-second-third')
+    })
 })

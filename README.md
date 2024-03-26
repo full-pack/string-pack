@@ -20,13 +20,13 @@ A lightweight and versatile String Utility Package for Node.js & Browser.
   * [merge](#merge)
   * [compare](#compare)
   * [looseCompare](#loosecompare)
-  
+  * [capitalizeInitial](#capitalizeinitial)
+  * [capitalizeWords](#capitalizewords)
+
   (Coming Soon)
-  * [remove](#)
-  * [looseRemove](#)
+  * [caseConversion](#)
   * [regionMatch](#)
   * [looseRegionMatch](#)
-  * [caseCoversion](#)
   * And Much More.
  * [Build](#build)
  * [License](#license)
@@ -110,6 +110,22 @@ Performs a case-insensitive loose comparison between two strings.
 looseCompare("hello", "HELLO"); // true
 
 looseCompare("abc", "123"); // false
+```
+
+### capitalizeInitial
+Capitalizes the first letter of a word in a string.
+```js
+capitalizeInitial('hello'); // 'Hello'
+
+capitalizeInitial(':> hello');  // ':> Hello'
+```
+
+### capitalizeWords
+Capitalizes the first letter of each word in a given string.
+```js
+capitalizeWords('hello world'); // 'Hello World'
+
+capitalizeWords('Sphinx of black quartz:-judge my vow'); // 'Sphinx Of Black Quartz:-Judge My Vow'
 ```
 
 ## Build

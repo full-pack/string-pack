@@ -22,9 +22,18 @@ A lightweight and versatile String Utility Package for Node.js & Browser.
   * [looseCompare](#loosecompare)
   * [capitalizeInitial](#capitalizeinitial)
   * [capitalizeWords](#capitalizewords)
+  * [Case Conversion](#case-conversion)
+    * [snakeCase](#snakeCase)
+    * [kebabCase](#kebabCase)
+    * [camelCase](#camelCase)
+    * [pascalCase](#pascalCase)
+  * [Case Validation](#case-validation)
+    * [isSnakeCase](#isSnakeCase)
+    * [isKebabCase](#isKebabCase)
+    * [isCamelCase](#isCamelCase)
+    * [isPascalCase](#isPascalCase)
 
   (Coming Soon)
-  * [caseConversion](#)
   * [regionMatch](#)
   * [looseRegionMatch](#)
   * And Much More.
@@ -109,7 +118,7 @@ Performs a case-insensitive loose comparison between two strings.
 ```js
 looseCompare("hello", "HELLO"); // true
 
-looseCompare("abc", "123"); // false
+looseCompare('abc', '123'); // false
 ```
 
 ### capitalizeInitial
@@ -127,6 +136,103 @@ capitalizeWords('hello world'); // 'Hello World'
 
 capitalizeWords('Sphinx of black quartz:-judge my vow'); // 'Sphinx Of Black Quartz:-Judge My Vow'
 ```
+
+### Case Conversion
+
+#### snakeCase
+Converts a string to snake_case format.
+```js
+snakeCase('hello WorLd'); // 'hello_world'
+snakeCase('from-kebab-case'); // 'from_kebab_case'
+snakeCase('snake Case With Numbers123', true); // 'snake_case_with_numbers_one_two_three'
+```
+
+#### kebabCase
+Converts a string to kebab-case format.
+```js
+kebabCase('h3llo WoRld'); // 'h3llo-world'
+kebabCase('from_snake_case'); // 'from-snake-case'
+kebabCase('kebab Case With Numbers123', true); // 'kebab-case-with-numbers-one-two-three'
+```
+
+#### camelCase
+Converts a string to camelCase format.
+```js
+camelCase('hello WoRld'); // 'helloWorld'
+camelCase('Test CaSe ExamplE'); // 'testCaseExample'
+camelCase('camel Case With Numbers123'); // 'camelCaseWithNumbers'
+```
+
+#### pascalCase
+Converts a string to PascalCase format.
+```js
+pascalCase('hello WoRld'); // 'HelloWorld'
+pascalCase('Test CaSe ExamplE'); // 'TestCaseExample'
+pascalCase('pasCal Case With Numbers123'); // 'PascalCaseWithNumbers'
+```
+
+### Case Validation
+
+#### isSnakeCase
+Checks if a string is in snake_case format.
+```js
+// Valid
+isSnakeCase('snake_case_example'); // true
+isSnakeCase('hello_world'); // true
+ 
+// Valid with alphanumeric flag
+isSnakeCase('with_1234', true); // true
+isSnakeCase('pi_3_14', true); // true
+ 
+// Invalid
+isSnakeCase('123at_start'); // false
+isSnakeCase(' no_space_allowed'); // false
+isSnakeCase('no_CAPS'); // false
+```
+
+#### isKebabCase
+Checks if a string is in kebab-case format.
+```js
+// Valid
+isKebabCase('kebab-case-example'); // true
+isKebabCase('hello-world'); // true
+ 
+// Valid with alphanumeric flag
+isKebabCase('with-1234', true); // true
+isKebabCase('pi-3-14', true); // true
+ 
+// Invalid
+isKebabCase('123at-start'); // false
+isKebabCase(' no-space-allowed'); // false
+isKebabCase('no-CAPS'); // false
+```
+
+#### isCamelCase
+Checks if a string is in camelCase format.
+```js
+// Valid
+isCamelCase('camelCaseExample'); // true
+isCamelCase('helloWorld'); // true
+ 
+// Invalid
+isCamelCase('CAMEL'); // false
+isCamelCase(' noSpaceAllowed'); // false
+isCamelCase('withThe1234'); // false
+```
+
+#### isPascalCase
+Checks if a string is in PascalCase format.
+```js
+// Valid
+isPascalCase('PascalCaseExample'); // true
+isPascalCase('HelloWorld'); // true
+ 
+// Invalid
+isPascalCase('PASCAL'); // false
+isPascalCase(' NoSpaceAllowed');; // false
+isPascalCase('WithThe1234'); // false
+```
+
 
 ## Build
 ```

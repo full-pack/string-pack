@@ -24,6 +24,8 @@
     "@typescript-eslint/indent": ["error", 4],
     "space-before-function-paren": "off",
     "@typescript-eslint/space-before-function-paren": "off",
+    "no-unmodified-loop-condition": "off",
+    "@typescript-eslint/no-unmodified-loop-condition": "off",
     "quotes": "off",
     "@typescript-eslint/quotes": ["error", "single", { "allowTemplateLiterals": true }]
   }

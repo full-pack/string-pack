@@ -27,7 +27,7 @@ function merge(sep: string | boolean, ...strings: string[] | string[][]): string
         else if (typeof sep === 'boolean') val += sep ? strings[i] + ' ' : strings[i]
         else val += strings[i] + sep
     }
-    return ''
+    return typeof sep === 'boolean' ? (sep ? ' ' : '') : sep
 }
 
 export { merge }

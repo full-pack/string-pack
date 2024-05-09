@@ -119,6 +119,10 @@ describe('padBidirectional function', () => {
         expect(padBidirectional('test', '-', 2, 10)).toBe('--test--')
     })
 
+    test('Should return input string if maxlen is less than traget string length', () => {
+        expect(padBidirectional('test', '-', 1, 4)).toBe('test')
+    })
+
     test('Should ignore bias', () => {
         expect(padBidirectional('test', '*', 3, 10, 0)).toBe('***test***')
         expect(padBidirectional('test', '*', 3, 10, 1)).toBe('***test***')

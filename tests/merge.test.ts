@@ -25,6 +25,18 @@ describe('merge Function', () => {
         expect(merge(false, 'a', 'b', 'c')).toBe('abc')
     })
 
+    test('Should return empty string for no input sep=false', () => {
+        expect(merge(false)).toBe('')
+    })
+
+    test('Should return string with whitespace for no input ', () => {
+        expect(merge(true)).toBe(' ')
+    })
+
+    test('Should return seperator string for no input ', () => {
+        expect(merge('-x-')).toBe('-x-')
+    })
+
     test('Should handle array of string in the input', () => {
         const arr = ['first', 'second', 'third']
         expect(merge('-', arr)).toBe('first-second-third')

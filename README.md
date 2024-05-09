@@ -2,7 +2,7 @@
 
 [![npm](https://img.shields.io/npm/v/@full-pack/string-pack.svg)](https://www.npmjs.com/package/@full-pack/string-pack)
 
-[![jest](https://jestjs.io/img/jest-badge.svg)](https://github.com/jestjs/jest) [![Code Style: Prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier) 
+[![jest](https://jestjs.io/img/jest-badge.svg)](https://github.com/jestjs/jest) [![Code Style: Prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier) [![codecov](https://codecov.io/gh/full-pack/string-pack/graph/badge.svg?token=VAO8UI9TEP)](https://codecov.io/gh/full-pack/string-pack)
 
 A lightweight and versatile String Utility Package for Node.js & Browser.
 

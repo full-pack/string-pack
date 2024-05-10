@@ -9,5 +9,13 @@ updates:
   - package-ecosystem: npm
     directory: "/"
     schedule:
-      interval: "daily"
-      time: "12:30"
+      interval: "weekly"
+      day: "sunday"
+    allow:
+      - dependency-name: "husky"
+      - dependency-name: "jest"
+      - dependency-name: "ts-*"
+      - dependency-name: "tsup"
+      - dependency-name: "typescript"
+    open-pull-requests-limit: 5
+    versioning-strategy: increase-if-necessary

@@ -36,7 +36,9 @@ A lightweight and versatile String Utility Package for Node.js & Browser.
   (Coming Soon)
   * [regionMatch](#)
   * [looseRegionMatch](#)
-  * And Much More.
+  * [isAlphaNumeric](#)
+  * [isAlpha](#)
+  * [reverse](#)
  * [Build](#build)
  * [License](#license)
 

@@ -13,6 +13,7 @@ import {
     camelCase,
     pascalCase
 } from './case'
+import { regionMatch, looseRegionMatch, type StringRegion } from './regionMatchers'
 
 export {
     padStart,
@@ -30,5 +31,9 @@ export {
     snakeCase,
     kebabCase,
     camelCase,
-    pascalCase
+    pascalCase,
+    regionMatch,
+    looseRegionMatch
 }
+
+export type { StringRegion }

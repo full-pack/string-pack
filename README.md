@@ -32,10 +32,10 @@ A lightweight and versatile String Utility Package for Node.js & Browser.
     * [isKebabCase](#isKebabCase)
     * [isCamelCase](#isCamelCase)
     * [isPascalCase](#isPascalCase)
+  * [regionMatch](#regionmatch)
+  * [looseRegionMatch](#looseregionmatch)
 
   (Coming Soon)
-  * [regionMatch](#)
-  * [looseRegionMatch](#)
   * [isAlphaNumeric](#)
   * [isAlpha](#)
   * [reverse](#)
@@ -235,6 +235,34 @@ isPascalCase(' NoSpaceAllowed');; // false
 isPascalCase('WithThe1234'); // false
 ```
 
+### regionMatch
+Compares two strings or regions for equality.
+```js
+// Matching identical strings
+regionMatch('hello', 'hello'); // true
+
+// Matching identical regions in strings
+const str1 = { str: 'hello world', start: 0, end: 5 };
+const str2 = { str: 'hello there', start: 0, end: 5 };
+regionMatch(str1, str2); // true
+// OR
+regionMatch('hello world', 'hello there', 0, 5) // true
+
+// Not matching regions
+regionMatch('hello world', 'hello there', 6, 11); // false
+```
+
+### looseRegionMatch
+Performs a loose comparison of two strings or regions for equality.
+```js
+// Loose matching identical strings
+looseRegionMatch('hello', 'HeLLo'); // true
+
+// Loose matching identical regions in strings
+const str1 = { str: ' hellO world', start: 1, end: 6 };
+const str2 = { str: 'HelLo there', start: 0, end: 5 };
+looseRegionMatch(str1, str2); // true
+```
 
 ## Build
 ```

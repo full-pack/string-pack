@@ -38,17 +38,19 @@
     "lint:fix": "eslint --fix . --ext .ts"
   },
   "keywords": [
-    "npm",
     "string",
-    "utility",
-    "node.js",
-    "manipulation",
-    "concatenate",
-    "validation",
-    "transformation",
-    "formatting",
-    "case conversion",
-    "typescript"
+    "utilities",
+    "merge",
+    "compare",
+    "padding",
+    "region matcher",
+    "string utils",
+    "string manipulation",
+    "string concatenate",
+    "string validation",
+    "string transformation",
+    "string formatting",
+    "case conversion"
   ],
   "repository": {
     "type": "git",

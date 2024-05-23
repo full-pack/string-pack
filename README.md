@@ -34,11 +34,12 @@ A lightweight and versatile String Utility Package for Node.js & Browser.
     * [isPascalCase](#isPascalCase)
   * [regionMatch](#regionmatch)
   * [looseRegionMatch](#looseregionmatch)
+  * [isAlpha](#isalpha)
+  * [isAlphaNumeric](#isalphanumeric)
 
   (Coming Soon)
-  * [isAlphaNumeric](#)
-  * [isAlpha](#)
   * [reverse](#)
+  * [CustomValidator](#)
  * [Build](#build)
  * [License](#license)
 
@@ -262,6 +263,20 @@ looseRegionMatch('hello', 'HeLLo'); // true
 const str1 = { str: ' hellO world', start: 1, end: 6 };
 const str2 = { str: 'HelLo there', start: 0, end: 5 };
 looseRegionMatch(str1, str2); // true
+```
+
+### isAlpha
+Checks if a string contains only alphabetic characters (A-Z, a-z).
+```js
+isAlpha("HelloWorld"); // true
+isAlpha("Hello123"); // false
+```
+
+### isAlphaNumeric
+Checks if a string contains only alphanumeric characters (A-Z, a-z, 0-9).
+```js
+isAlphaNumeric("Hello01"); // true
+isAlphaNumeric("1234567890"); // false
 ```
 
 ## Build

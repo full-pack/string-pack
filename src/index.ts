@@ -14,6 +14,7 @@ import {
     pascalCase
 } from './case'
 import { regionMatch, looseRegionMatch, type StringRegion } from './regionMatchers'
+import { isAlpha, isAlphaNumeric } from './validators'
 
 export {
     padStart,
@@ -33,7 +34,9 @@ export {
     camelCase,
     pascalCase,
     regionMatch,
-    looseRegionMatch
+    looseRegionMatch,
+    isAlpha,
+    isAlphaNumeric
 }
 
 export type { StringRegion }

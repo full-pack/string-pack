@@ -36,10 +36,11 @@ A lightweight and versatile String Utility Package for Node.js & Browser.
   * [looseRegionMatch](#looseregionmatch)
   * [isAlpha](#isalpha)
   * [isAlphaNumeric](#isalphanumeric)
+  * [reverse](#reverse)
 
   (Coming Soon)
-  * [reverse](#)
-  * [CustomValidator](#)
+  * [StringBuilder](#)
+  * [StringValidator](#)
  * [Build](#build)
  * [License](#license)
 
@@ -277,6 +278,12 @@ Checks if a string contains only alphanumeric characters (A-Z, a-z, 0-9).
 ```js
 isAlphaNumeric("Hello01"); // true
 isAlphaNumeric("1234567890"); // false
+```
+
+### Reverse
+Reverses the sequence of characters in given string.
+```js
+reverse('bad') // 'dab'
 ```
 
 ## Build

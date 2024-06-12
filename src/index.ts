@@ -15,6 +15,7 @@ import {
 } from './case'
 import { regionMatch, looseRegionMatch, type StringRegion } from './regionMatchers'
 import { isAlpha, isAlphaNumeric } from './validators'
+import { reverse } from './reverse'
 
 export {
     padStart,
@@ -36,7 +37,8 @@ export {
     regionMatch,
     looseRegionMatch,
     isAlpha,
-    isAlphaNumeric
+    isAlphaNumeric,
+    reverse
 }
 
 export type { StringRegion }

@@ -1,43 +1,50 @@
-import { readFileSync, openSync, writeSync, close, readdirSync } from 'fs'
-import { resolve, extname } from 'path'
+import { readFileSync } from 'fs'
 import { defineConfig } from 'tsup'
+import type { NormalizedOptions, Format } from 'tsup'
 
-async function prependLicense(): Promise<void> {
-    const outDir = resolve(process.cwd(), 'dist/')
-    const filenames = readdirSync(outDir, {
-        withFileTypes: true
-    })
+interface Context {
+    options: NormalizedOptions
+    format: Format
+    /** "type" field in project's package.json */
+    pkgType?: string
+}
+
+interface Result {
+    js?: string
+}
+
+function generateLicense(): string {
     const packInfo = JSON.parse(readFileSync('package.json').toString())
-    const license = Buffer.from(
-        `/**\n * ${packInfo.name} v${packInfo.version}\n * Copyright (c) 2024 Ram Amoncar <ramamonkar444@gmail.com>\n * @license ${packInfo.license}\n */\n`
-    )
-    if (
-        packInfo !== undefined &&
-        packInfo.version !== undefined &&
-        packInfo.name !== undefined &&
-        packInfo.license !== undefined
-    ) {
-        for (const file of filenames) {
-            if (extname(file.name) !== '.map' && file.isFile()) {
-                const data = readFileSync(resolve(outDir, file.name))
-                const fd = openSync(resolve(outDir, file.name), 'w+')
-                writeSync(fd, license, 0, license.length, 0)
-                writeSync(fd, data, 0, data.length, license.length)
-                close(fd, (err) => {
-                    if (err !== null) throw err
-                })
-            }
-        }
-    }
+    return `/**\n * ${packInfo.name} v${packInfo.version}\n * Copyright (c) 2024 Ram Amoncar <ramamonkar444@gmail.com>\n * @license ${packInfo.license}\n */`
+}
+
+const license = generateLicense()
+
+function outputExtensions(ctx: Context): Result {
+    if (ctx.format === 'cjs') return { js: '.js' }
+    if (ctx.format === 'esm') return { js: '.mjs' }
+    return { js: '.min.js' }
 }
 
 export default defineConfig({
-    entry: ['src/index.ts'],
-    format: ['cjs', 'esm'], // Build for commonJS and ESmodules
-    dts: true, // Generate declaration file (.d.ts)
     splitting: false,
-    sourcemap: true,
+    entry: ['src/index.ts'],
+    // Generate declaration file (.d.ts & .d.mts)
+    // And adds banner
+    dts: {
+        banner: license
+    },
+    // Builds for commonJS, ESmodules & Browser
+    format: ['cjs', 'esm', 'iife'],
+    outExtension: outputExtensions,
+    // Cleaning './dist/' before building
     clean: true,
-    minify: true,
-    onSuccess: prependLicense
+    // Header/Banner
+    banner: {
+        js: license
+    },
+    // Minify Options
+    minifyIdentifiers: false,
+    minifySyntax: true,
+    minifyWhitespace: true
 })

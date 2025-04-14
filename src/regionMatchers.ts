@@ -33,10 +33,11 @@ interface StringRegion {
  * regionMatch(str5, str6); // true
  */
 function regionMatch(str1: StringRegion | string, str2: StringRegion | string, start?: number, end?: number): boolean {
+    const ZERO_IDX = 0
     // Normalizing Inputs
     // Strings to StringRegion
     if (typeof str1 === 'string' || typeof str2 === 'string') {
-        start = start ?? 0
+        start ??= ZERO_IDX
         if (typeof str1 === 'string') {
             const e = end ?? str1.length
             str1 = { str: str1, start, end: e }
@@ -48,10 +49,10 @@ function regionMatch(str1: StringRegion | string, str2: StringRegion | string, s
     }
 
     // Getting start and end for both strings
-    const s1 = str1.start ?? 0
+    const s1 = str1.start ?? ZERO_IDX
     const e1 = str1.end ?? str1.str.length
 
-    const s2 = str2.start ?? 0
+    const s2 = str2.start ?? ZERO_IDX
     const e2 = str2.end ?? str2.str.length
 
     return str1.str.substring(s1, e1) === str2.str.substring(s2, e2)

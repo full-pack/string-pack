@@ -2,6 +2,7 @@
   "name": "@full-pack/string-pack",
   "version": "0.8.0",
   "description": "A lightweight and versatile String Utility Package for Node.js & Browser.",
+  "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -30,8 +31,8 @@
     "coverage": "jest --coverage --config ./jest.config.ts",
     "format": "prettier -w .",
     "format:check": "prettier -c .",
-    "lint": "eslint . --ext .ts",
-    "lint:fix": "eslint --fix . --ext .ts"
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix ."
   },
   "keywords": [
     "string",

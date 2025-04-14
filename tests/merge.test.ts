@@ -9,7 +9,7 @@ describe('merge Function', () => {
         expect(merge(':', 'red', 'green', 'blue')).toBe('red:green:blue')
     })
 
-    test('Should merge strings with a space when boolean (true) as separator ', () => {
+    test('Should merge strings with a space when boolean (true) as separator', () => {
         expect(merge(true, 'one', 'two', 'three')).toBe('one two three')
     })
 
@@ -29,11 +29,11 @@ describe('merge Function', () => {
         expect(merge(false)).toBe('')
     })
 
-    test('Should return string with whitespace for no input ', () => {
+    test('Should return string with whitespace for no input', () => {
         expect(merge(true)).toBe(' ')
     })
 
-    test('Should return seperator string for no input ', () => {
+    test('Should return separator string for no input', () => {
         expect(merge('-x-')).toBe('-x-')
     })
 

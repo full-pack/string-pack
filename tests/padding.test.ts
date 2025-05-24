@@ -1,4 +1,4 @@
-import { padEnd, padStart, padBidirectional } from '../src/padding'
+import { padEnd, padStart, padBidirectional, PaddingBias } from '../src/padding'
 
 describe('padStart function', () => {
     describe('Should pad the start of the string with the fill string repeated the specified number of times', () => {
@@ -102,33 +102,43 @@ describe('padBidirectional function', () => {
     })
 
     test('Should pad with custom fill string and repeat count', () => {
-        expect(padBidirectional('world', '*', 3)).toBe('***world***')
+        expect(padBidirectional('world', '*', { repeatCount: 3 })).toBe('***world***')
     })
 
     test('Should limit total length with bias', () => {
-        expect(padBidirectional('example', '*', 2, 10, 0)).toBe('**example*')
-        expect(padBidirectional('example', '*', 2, 10, 1)).toBe('*example**')
+        expect(padBidirectional('example', '*', { repeatCount: 2, maxLen: 10, bias: PaddingBias.START })).toBe(
+            '**example*'
+        )
+        expect(padBidirectional('example', '*', { repeatCount: 2, maxLen: 10, bias: PaddingBias.END })).toBe(
+            '*example**'
+        )
     })
 
     test('Should handle empty string input', () => {
         expect(padBidirectional('')).toBe('  ')
-        expect(padBidirectional('', '-', 2)).toBe('----')
+        expect(padBidirectional('', '-', { repeatCount: 3 })).toBe('------')
     })
 
     test('Should evenly pad for even maxLen', () => {
-        expect(padBidirectional('test', '-', 2, 10)).toBe('--test--')
+        expect(padBidirectional('test', '-', { repeatCount: 2, maxLen: 10 })).toBe('--test--')
     })
 
     test('Should return input string if maxlen is less than traget string length', () => {
-        expect(padBidirectional('test', '-', 1, 4)).toBe('test')
+        expect(padBidirectional('test', '-', { repeatCount: 1, maxLen: 4 })).toBe('test')
     })
 
     test('Should ignore bias', () => {
-        expect(padBidirectional('test', '*', 3, 10, 0)).toBe('***test***')
-        expect(padBidirectional('test', '*', 3, 10, 1)).toBe('***test***')
+        expect(padBidirectional('test', '*', { repeatCount: 3, maxLen: 10, bias: PaddingBias.START })).toBe(
+            '***test***'
+        )
+        expect(padBidirectional('test', '*', { repeatCount: 3, maxLen: 10, bias: PaddingBias.END })).toBe('***test***')
     })
     test('Should properly pad at start & end in case of maxlen limit', () => {
-        expect(padBidirectional('test', 'abc', 3, 11, 0)).toBe('cabctestabc')
-        expect(padBidirectional('test', 'abc', 3, 12, 0)).toBe('cabctestabca')
+        expect(padBidirectional('test', 'abc', { repeatCount: 3, maxLen: 11, bias: PaddingBias.START })).toBe(
+            'cabctestabc'
+        )
+        expect(padBidirectional('test', 'abc', { repeatCount: 3, maxLen: 12, bias: PaddingBias.START })).toBe(
+            'cabctestabca'
+        )
     })
 })

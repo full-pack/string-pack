@@ -36,26 +36,20 @@ function regionMatch(str1: StringRegion | string, str2: StringRegion | string, s
     const ZERO_IDX = 0
     // Normalizing Inputs
     // Strings to StringRegion
-    if (typeof str1 === 'string' || typeof str2 === 'string') {
-        start ??= ZERO_IDX
-        if (typeof str1 === 'string') {
-            const e = end ?? str1.length
-            str1 = { str: str1, start, end: e }
-        }
-        if (typeof str2 === 'string') {
-            const e = end ?? str2.length
-            str2 = { str: str2, start, end: e }
-        }
+    if (typeof str1 === 'string') {
+        const e = end ?? str1.length
+        str1 = { str: str1, start, end: e }
+    }
+    if (typeof str2 === 'string') {
+        const e = end ?? str2.length
+        str2 = { str: str2, start, end: e }
     }
 
-    // Getting start and end for both strings
-    const s1 = str1.start ?? ZERO_IDX
-    const e1 = str1.end ?? str1.str.length
+    // Zero indexing for both strings if undefined
+    str1.start ??= ZERO_IDX
+    str2.start ??= ZERO_IDX
 
-    const s2 = str2.start ?? ZERO_IDX
-    const e2 = str2.end ?? str2.str.length
-
-    return str1.str.substring(s1, e1) === str2.str.substring(s2, e2)
+    return str1.str.substring(str1.start, str1.end) === str2.str.substring(str2.start, str2.end)
 }
 
 /**

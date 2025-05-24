@@ -90,13 +90,14 @@ padEnd('hello', 'abc', 3, 8); // helloabc
 Pads a string with a specified fill string a certain number of times on both ends.
 ```js
 // Basic usage
-padBidirectional('hello', '*', 2); // '**hello**'
+padBidirectional('hello', '*', {repeatCount: 2}); // '**hello**'
 
 // Limiting total length
-padBidirectional('world', '-', 3, 10); // '--world---'
+padBidirectional('world', '-', {repeatCount: 3, maxLen: 10}); // '--world---'
  
 // Controlling padding distribution
-padBidirectional('example', '*', 2, 10, 0); // '**example*'
+padBidirectional('example', '*', {repeatCount: 2, maxLen: 10, bias: PaddingBias.START}); 
+// '**example*'
 ```
 
 ### merge

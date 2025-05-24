@@ -1,3 +1,14 @@
+enum PaddingBias {
+    START = 0,
+    END = 1
+}
+
+interface PaddingOptions {
+    repeatCount?: number
+    maxLen?: number
+    bias?: PaddingBias
+}
+
 /**
  * Pads the start (left) of a string with a specified fill string a certain number of times.
  * @param {string} val - The original string.
@@ -12,7 +23,7 @@
  * // Limiting total length
  * padStart('hello', 'abc', 3, 8) // abchello
  */
-function padStart(val: string, fillString: string = '\u0020', repeatCount: number = 1, maxLen?: number): string {
+function padStart(val: string, fillString = '\u0020', repeatCount = 1, maxLen?: number): string {
     if (typeof maxLen !== 'undefined' && maxLen <= val.length) return val
     else if (typeof maxLen === 'undefined') {
         for (let i = 0; i < repeatCount; i++) val = fillString + val
@@ -37,7 +48,7 @@ function padStart(val: string, fillString: string = '\u0020', repeatCount: numbe
  * // Limiting total length
  * padEnd('hello', 'abc', 3, 8); // helloabc
  */
-function padEnd(val: string, fillString: string = '\u0020', repeatCount: number = 1, maxLen?: number): string {
+function padEnd(val: string, fillString = '\u0020', repeatCount = 1, maxLen?: number): string {
     if (typeof maxLen !== 'undefined' && maxLen <= val.length) return val
     else if (typeof maxLen === 'undefined') {
         for (let i = 0; i < repeatCount; i++) val += fillString
@@ -51,9 +62,9 @@ function padEnd(val: string, fillString: string = '\u0020', repeatCount: number 
  * Pads a string with a specified fill string a certain number of times on both ends.
  * @param {string} val - The original string.
  * @param {string} fillString - The string to use for padding (default is ' ' | `U+0020` | single whitespace).
- * @param {number} repeatCount - The number of times to repeat the fill string (default is 1).
- * @param {number} maxLen - The maximum length of the resulting string (optional).
- * @param {string} bias - To control the distribution of padding on both sides (optional) (default is 1).
+ * @param {number} PaddingOptions.repeatCount - The number of times to repeat the fill string (default is 1).
+ * @param {number} PaddingOptions.maxLen - The maximum length of the resulting string (optional).
+ * @param {PaddingBias} PaddingOptions.bias - To control the distribution of padding on both sides (optional) (default is 1).
  *
  * 0: More padding is given to the start of the string.
  *
@@ -64,45 +75,41 @@ function padEnd(val: string, fillString: string = '\u0020', repeatCount: number 
  *
  * @example
  * // Basic usage
- * padBidirectional('hello', '*', 2); // '**hello**'
+ * padBidirectional('hello', '*', {repeatCount: 2}); // '**hello**'
  *
  * // Limiting total length
- * padBidirectional('world', '-', 3, 10); // '--world---'
+ * padBidirectional('world', '-', {repeatCount: 3, maxLen: 10}); // '--world---'
  *
  * // Controlling padding distribution
- * padBidirectional('example', '*', 2, 10, 0); // '**example*'
+ * padBidirectional('example', '*', {repeatCount: 2, maxLen: 10, bias: PaddingBias.START}); // '**example*'
  */
-function padBidirectional(
-    val: string,
-    fillString: string = '\u0020',
-    repeatCount: number = 1,
-    maxLen?: number,
-    bias: 0 | 1 = 1
-): string {
-    if (typeof maxLen !== 'undefined' && maxLen <= val.length) return val
+function padBidirectional(val: string, fillString = '\u0020', paddingOptions: PaddingOptions = {}): string {
+    const { repeatCount = 1, maxLen, bias = PaddingBias.END } = paddingOptions
+    const padding = fillString.repeat(repeatCount)
+    let start = padding
+    let end = padding
     if (typeof maxLen !== 'undefined') {
+        if (maxLen <= val.length) return val
+
         const remainingSpace = maxLen - val.length
-        const totalFillLen = fillString.length * repeatCount * 2
-        let pad = ''
-        for (let i = 0; i < repeatCount; i++) pad += fillString
-        if (remainingSpace < totalFillLen) {
-            if ((remainingSpace / 2) % 1 === 0)
-                val = pad.substring(pad.length - remainingSpace / 2) + val + pad.substring(0, remainingSpace / 2)
-            else if (bias === 0)
-                val =
-                    pad.substring(pad.length - Math.ceil(remainingSpace / 2)) +
-                    val +
-                    pad.substring(0, Math.floor(remainingSpace / 2))
-            else
-                val =
-                    pad.substring(pad.length - Math.floor(remainingSpace / 2)) +
-                    val +
-                    pad.substring(0, Math.ceil(remainingSpace / 2))
-            return val
+        const totalFillerLength = padding.length * 2
+        const halfSpace = remainingSpace / 2
+        const isEven = halfSpace % 1 === 0
+
+        if (remainingSpace < totalFillerLength) {
+            if (isEven) {
+                start = padding.substring(padding.length - halfSpace)
+                end = padding.substring(0, halfSpace)
+            } else if (bias === PaddingBias.START) {
+                start = padding.substring(padding.length - Math.ceil(halfSpace))
+                end = padding.substring(0, Math.floor(halfSpace))
+            } else {
+                start = padding.substring(padding.length - Math.floor(halfSpace))
+                end = padding.substring(0, Math.ceil(halfSpace))
+            }
         }
     }
-    for (let i = 0; i < repeatCount; i++) val = fillString + val + fillString
-    return val
+    return start + val + end
 }
 
-export { padStart, padEnd, padBidirectional }
+export { padStart, padEnd, padBidirectional, PaddingBias, type PaddingOptions }

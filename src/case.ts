@@ -51,7 +51,7 @@ function capitalizeWords(str: string): string {
  * isSnakeCase(' no_space_allowed'); // false
  * isSnakeCase('no_CAPS'); // false
  */
-function isSnakeCase(str: string, alphanumeric: boolean = false): boolean {
+function isSnakeCase(str: string, alphanumeric = false): boolean {
     const snakeCase = /^[a-z]+(_[a-z]+)*$/
     const snakeCaseWithNumbers = /^([a-z][0-9]*)+(?:_[a-z0-9]+)*$/
     return alphanumeric ? snakeCaseWithNumbers.test(str) : snakeCase.test(str)
@@ -82,7 +82,7 @@ function isSnakeCase(str: string, alphanumeric: boolean = false): boolean {
  * isKebabCase(' no-space-allowed'); // false
  * isKebabCase('no-CAPS'); // false
  */
-function isKebabCase(str: string, alphanumeric: boolean = false): boolean {
+function isKebabCase(str: string, alphanumeric = false): boolean {
     const kebabCase = /^[a-z]+(-[a-z]+)*$/
     const kebabCaseWithNumbers = /^([a-z][0-9]*)+(?:-[a-z0-9]+)*$/
     return alphanumeric ? kebabCaseWithNumbers.test(str) : kebabCase.test(str)
@@ -150,13 +150,15 @@ function isPascalCase(str: string): boolean {
  * snakeCase('from-kebab-case'); // 'from_kebab_case'
  * snakeCase('snake Case With Numbers123', true); // 'snake_case_with_numbers_one_two_three'
  */
-function snakeCase(str: string, inWords: boolean = false): string {
+function snakeCase(str: string, inWords = false): string {
     if (isCamelCase(str)) return getWords(str, 'camel').join('_').toLowerCase()
     if (isPascalCase(str)) return getWords(str, 'pascal').join('_').toLowerCase()
 
     const numbersInWords = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine']
-    for (let i = 0; inWords && i < numbersInWords.length; i++) {
-        str = str.replace(RegExp(i.toString(), 'g'), (_char: string) => ' ' + numbersInWords[i] + ' ')
+    if (inWords) {
+        for (let i = 0; i < numbersInWords.length; i++) {
+            str = str.replace(RegExp(i.toString(), 'g'), (_char: string) => ' ' + numbersInWords[i] + ' ')
+        }
     }
 
     return getWords(str).join('_').toLowerCase()
@@ -172,13 +174,15 @@ function snakeCase(str: string, inWords: boolean = false): string {
  * kebabCase('from_snake_case'); // 'from-snake-case'
  * kebabCase('kebab Case With Numbers123', true); // 'kebab-case-with-numbers-one-two-three'
  */
-function kebabCase(str: string, inWords: boolean = false): string {
+function kebabCase(str: string, inWords = false): string {
     if (isCamelCase(str)) return getWords(str, 'camel').join('-').toLowerCase()
     if (isPascalCase(str)) return getWords(str, 'pascal').join('-').toLowerCase()
 
     const numbersInWords = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine']
-    for (let i = 0; inWords && i < numbersInWords.length; i++) {
-        str = str.replace(RegExp(i.toString(), 'g'), (_char: string) => ' ' + numbersInWords[i] + ' ')
+    if (inWords) {
+        for (let i = 0; i < numbersInWords.length; i++) {
+            str = str.replace(RegExp(i.toString(), 'g'), (_char: string) => ' ' + numbersInWords[i] + ' ')
+        }
     }
 
     return getWords(str).join('-').toLowerCase()

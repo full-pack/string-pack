@@ -157,7 +157,7 @@ function snakeCase(str: string, inWords = false, locales?: Intl.LocalesArgument)
     const numbersInWords = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine']
     if (inWords) {
         for (let i = 0; i < numbersInWords.length; i++) {
-            str = str.replace(RegExp(i.toString(), 'g'), (_char: string) => ' ' + numbersInWords[i] + ' ')
+            str = str.replace(RegExp(i.toString(), 'g'), () => ' ' + numbersInWords[i] + ' ')
         }
     }
 
@@ -181,7 +181,7 @@ function kebabCase(str: string, inWords = false, locales?: Intl.LocalesArgument)
     const numbersInWords = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine']
     if (inWords) {
         for (let i = 0; i < numbersInWords.length; i++) {
-            str = str.replace(RegExp(i.toString(), 'g'), (_char: string) => ' ' + numbersInWords[i] + ' ')
+            str = str.replace(RegExp(i.toString(), 'g'), () => ' ' + numbersInWords[i] + ' ')
         }
     }
 

@@ -83,12 +83,17 @@ function looseRegionMatch(
     end?: number,
     locales?: Intl.LocalesArgument
 ): boolean {
-    if (typeof str1 === 'string') str1 = str1.toLocaleLowerCase(locales)
-    else str1.str = str1.str.toLocaleLowerCase(locales)
-    if (typeof str2 === 'string') str2 = str2.toLocaleLowerCase(locales)
-    else str2.str = str2.str.toLocaleLowerCase(locales)
+    if (typeof str1 === 'string') {
+        const e = end ?? str1.length
+        str1 = { str: str1.toLocaleLowerCase(locales), start, end: e }
+    } else str1.str = str1.str.toLocaleLowerCase(locales)
 
-    return regionMatch(str1, str2, start, end)
+    if (typeof str2 === 'string') {
+        const e = end ?? str2.length
+        str2 = { str: str2.toLocaleLowerCase(locales), start, end: e }
+    } else str2.str = str2.str.toLocaleLowerCase(locales)
+
+    return regionMatch(str1, str2)
 }
 
 export { regionMatch, looseRegionMatch, type StringRegion }

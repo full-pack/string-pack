@@ -24,14 +24,12 @@ interface PaddingOptions {
  * padStart('hello', 'abc', 3, 8) // abchello
  */
 function padStart(val: string, fillString = '\u0020', repeatCount = 1, maxLen?: number): string {
-    if (typeof maxLen !== 'undefined' && maxLen <= val.length) return val
-    else if (typeof maxLen === 'undefined') {
-        for (let i = 0; i < repeatCount; i++) val = fillString + val
-        return val
-    }
-    for (let i = 0; i < repeatCount && val.length <= maxLen; i++) val = fillString + val
-    const finalVal = val.length > maxLen ? val.substring(Math.abs(maxLen - val.length)) : val
-    return finalVal
+    const padding = fillString.repeat(repeatCount)
+    if (typeof maxLen === 'undefined') return padding + val
+    if (maxLen <= val.length) return val
+
+    const remSpace = maxLen - val.length
+    return padding.slice(-remSpace) + val
 }
 
 /**
@@ -49,13 +47,12 @@ function padStart(val: string, fillString = '\u0020', repeatCount = 1, maxLen?: 
  * padEnd('hello', 'abc', 3, 8); // helloabc
  */
 function padEnd(val: string, fillString = '\u0020', repeatCount = 1, maxLen?: number): string {
-    if (typeof maxLen !== 'undefined' && maxLen <= val.length) return val
-    else if (typeof maxLen === 'undefined') {
-        for (let i = 0; i < repeatCount; i++) val += fillString
-        return val
-    }
-    for (let i = 0; i < repeatCount && val.length <= maxLen; i++) val += fillString
-    return val.substring(0, maxLen)
+    const padding = fillString.repeat(repeatCount)
+    if (typeof maxLen === 'undefined') return val + padding
+    if (maxLen <= val.length) return val
+
+    const remSpace = maxLen - val.length
+    return val + padding.substring(0, remSpace)
 }
 
 /**

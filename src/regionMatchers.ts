@@ -75,16 +75,18 @@ function regionMatch(str1: StringRegion | string, str2: StringRegion | string, s
  * const str6 = { str: 'HelLo there', start: 0, end: 5 };
  * looseRegionMatch(str5, str6); // true
  */
+/* eslint-disable-next-line @typescript-eslint/max-params -- locales parameter enhances user accessibility and internationalization support */
 function looseRegionMatch(
     str1: StringRegion | string,
     str2: StringRegion | string,
     start?: number,
-    end?: number
+    end?: number,
+    locales?: Intl.LocalesArgument
 ): boolean {
-    if (typeof str1 === 'string') str1 = str1.toLowerCase()
-    else str1.str = str1.str.toLowerCase()
-    if (typeof str2 === 'string') str2 = str2.toLowerCase()
-    else str2.str = str2.str.toLowerCase()
+    if (typeof str1 === 'string') str1 = str1.toLocaleLowerCase(locales)
+    else str1.str = str1.str.toLocaleLowerCase(locales)
+    if (typeof str2 === 'string') str2 = str2.toLocaleLowerCase(locales)
+    else str2.str = str2.str.toLocaleLowerCase(locales)
 
     return regionMatch(str1, str2, start, end)
 }

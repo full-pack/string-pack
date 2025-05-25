@@ -8,8 +8,8 @@ import { getWords } from './.internal/getWords'
  * capitalizeInitial('hello'); // 'Hello'
  * capitalizeInitial(':> hello');  // ':> Hello'
  */
-function capitalizeInitial(str: string): string {
-    return str.replace(/\b\w/, (char: string) => char.toUpperCase())
+function capitalizeInitial(str: string, locales?: Intl.LocalesArgument): string {
+    return str.replace(/\b\w/, (char: string) => char.toLocaleUpperCase(locales))
 }
 
 /**
@@ -22,8 +22,8 @@ function capitalizeInitial(str: string): string {
  * capitalizeWords('Sphinx of black quartz:-judge my vow');
  * // 'Sphinx Of Black Quartz:-Judge My Vow'
  */
-function capitalizeWords(str: string): string {
-    return str.replace(/\b\w/g, (char: string) => char.toUpperCase())
+function capitalizeWords(str: string, locales?: Intl.LocalesArgument): string {
+    return str.replace(/\b\w/g, (char: string) => char.toLocaleUpperCase(locales))
 }
 
 /**
@@ -150,9 +150,9 @@ function isPascalCase(str: string): boolean {
  * snakeCase('from-kebab-case'); // 'from_kebab_case'
  * snakeCase('snake Case With Numbers123', true); // 'snake_case_with_numbers_one_two_three'
  */
-function snakeCase(str: string, inWords = false): string {
-    if (isCamelCase(str)) return getWords(str, 'camel').join('_').toLowerCase()
-    if (isPascalCase(str)) return getWords(str, 'pascal').join('_').toLowerCase()
+function snakeCase(str: string, inWords = false, locales?: Intl.LocalesArgument): string {
+    if (isCamelCase(str)) return getWords(str, 'camel').join('_').toLocaleLowerCase(locales)
+    if (isPascalCase(str)) return getWords(str, 'pascal').join('_').toLocaleLowerCase(locales)
 
     const numbersInWords = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine']
     if (inWords) {
@@ -161,7 +161,7 @@ function snakeCase(str: string, inWords = false): string {
         }
     }
 
-    return getWords(str).join('_').toLowerCase()
+    return getWords(str).join('_').toLocaleLowerCase(locales)
 }
 
 /**
@@ -174,9 +174,9 @@ function snakeCase(str: string, inWords = false): string {
  * kebabCase('from_snake_case'); // 'from-snake-case'
  * kebabCase('kebab Case With Numbers123', true); // 'kebab-case-with-numbers-one-two-three'
  */
-function kebabCase(str: string, inWords = false): string {
-    if (isCamelCase(str)) return getWords(str, 'camel').join('-').toLowerCase()
-    if (isPascalCase(str)) return getWords(str, 'pascal').join('-').toLowerCase()
+function kebabCase(str: string, inWords = false, locales?: Intl.LocalesArgument): string {
+    if (isCamelCase(str)) return getWords(str, 'camel').join('-').toLocaleLowerCase(locales)
+    if (isPascalCase(str)) return getWords(str, 'pascal').join('-').toLocaleLowerCase(locales)
 
     const numbersInWords = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine']
     if (inWords) {
@@ -185,7 +185,7 @@ function kebabCase(str: string, inWords = false): string {
         }
     }
 
-    return getWords(str).join('-').toLowerCase()
+    return getWords(str).join('-').toLocaleLowerCase(locales)
 }
 
 /**
@@ -197,14 +197,16 @@ function kebabCase(str: string, inWords = false): string {
  * camelCase('Test CaSe ExamplE'); // 'testCaseExample'
  * camelCase('camel Case With Numbers123'); // 'camelCaseWithNumbers'
  */
-function camelCase(str: string): string {
+function camelCase(str: string, locales?: Intl.LocalesArgument): string {
     str = str.replace(/[^a-zA-Z]/g, ' ')
     if (isCamelCase(str)) return str
-    if (isPascalCase(str)) return str.charAt(0).toLowerCase() + str.substring(1)
+    if (isPascalCase(str)) return str.charAt(0).toLocaleLowerCase(locales) + str.substring(1)
     return getWords(str).reduce((prev: string, curVal: string, i: number): string =>
         i !== 1
-            ? prev + curVal.charAt(0).toUpperCase() + curVal.substring(1).toLowerCase()
-            : prev.toLowerCase() + curVal.charAt(0).toUpperCase() + curVal.substring(1).toLowerCase()
+            ? prev + curVal.charAt(0).toLocaleUpperCase(locales) + curVal.substring(1).toLocaleLowerCase(locales)
+            : prev.toLocaleLowerCase(locales) +
+              curVal.charAt(0).toLocaleUpperCase(locales) +
+              curVal.substring(1).toLocaleLowerCase(locales)
     )
 }
 
@@ -217,13 +219,13 @@ function camelCase(str: string): string {
  * pascalCase('Test CaSe ExamplE'); // 'TestCaseExample'
  * pascalCase('pasCal Case With Numbers123'); // 'PascalCaseWithNumbers'
  */
-function pascalCase(str: string): string {
+function pascalCase(str: string, locales?: Intl.LocalesArgument): string {
     str = str.replace(/[^a-zA-Z]/g, ' ')
     if (isPascalCase(str)) return str
-    if (isCamelCase(str)) return str.charAt(0).toUpperCase() + str.substring(1)
+    if (isCamelCase(str)) return str.charAt(0).toLocaleUpperCase(locales) + str.substring(1)
     return getWords(str).reduce(
         (prev: string, curVal: string): string =>
-            prev + curVal.charAt(0).toUpperCase() + curVal.substring(1).toLowerCase(),
+            prev + curVal.charAt(0).toLocaleUpperCase(locales) + curVal.substring(1).toLocaleLowerCase(locales),
 
         ''
     )

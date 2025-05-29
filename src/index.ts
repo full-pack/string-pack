@@ -1,4 +1,4 @@
-import { padStart, padEnd, padBidirectional } from './padding'
+import { padStart, padEnd, padBidirectional, PaddingBias, type PaddingOptions } from './padding'
 import { compare, looseCompare } from './compare'
 import { merge } from './merge'
 import {
@@ -38,7 +38,8 @@ export {
     looseRegionMatch,
     isAlpha,
     isAlphaNumeric,
-    reverse
+    reverse,
+    PaddingBias
 }
 
-export type { StringRegion }
+export type { StringRegion, PaddingOptions }

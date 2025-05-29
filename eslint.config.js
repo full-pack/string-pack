@@ -1,13 +1,15 @@
 'use strict'
 
+import { defineConfig, globalIgnores } from 'eslint/config'
 import stylistic from '@stylistic/eslint-plugin'
 import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended'
 import jest from 'eslint-plugin-jest'
 import love from 'eslint-config-love'
 
-export default [
+export default defineConfig([
+    globalIgnores(['dist/', '**/*.js']),
     {
-        ignores: ['dist', '**/*.js']
+        files: ['**/*.ts']
     },
     // Stylistic
     {
@@ -39,9 +41,16 @@ export default [
     // Custom
     {
         rules: {
-            '@typescript-eslint/no-magic-numbers': 'off',
-            'jest/consistent-test-it': ['error', { fn: 'test' }]
+            'jest/consistent-test-it': ['error', { fn: 'test' }],
+            'max-nested-callbacks': 'off',
+            'max-lines': 'off'
         },
         files: ['tests/**.test.ts']
+    },
+    {
+        files: ['**/*.ts'],
+        rules: {
+            '@typescript-eslint/no-magic-numbers': 'off'
+        }
     }
-]
+])

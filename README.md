@@ -9,6 +9,7 @@ A lightweight and versatile String Utility Package for Node.js & Browser.
 <img src="https://user-images.githubusercontent.com/6517308/121813242-859a9700-cc6b-11eb-99c0-49e5bb63005b.jpg">
 
 # Contents
+
 * [Install](#install)
 * [require](#require)
 * [import](#import)
@@ -37,14 +38,11 @@ A lightweight and versatile String Utility Package for Node.js & Browser.
   * [isAlpha](#isalpha)
   * [isAlphaNumeric](#isalphanumeric)
   * [reverse](#reverse)
-
-  (Coming Soon)
-  * [StringBuilder](#)
-  * [StringValidator](#)
  * [Build](#build)
  * [License](#license)
 
-## install
+## Install
+
 ```sh
 npm install @full-pack/string-pack
 ```
@@ -61,13 +59,16 @@ const { ... } = require('@full-pack/string-pack');
 import { ... } from '@full-pack/string-pack';
 ```
 
-## API
+## APIs
 
-### padding
+### Padding
+
 Adds padding to given string.
 
 ##### padStart
+
 Pads the start of a string with a specified fill string a certain number of times.
+
 ```js
 // Basic Usage
 padStart('hello', 'abc', 3) // abcabcabchello
@@ -77,7 +78,9 @@ padStart('hello', 'abc', 3, 8) // abchello
 ```
 
 ##### padEnd
+
 Pads the end of a string with a specified fill string a certain number of times.
+
 ```js
 // Basic Usage
 padEnd('hello', 'abc', 3); // helloabcabcabc
@@ -87,7 +90,9 @@ padEnd('hello', 'abc', 3, 8); // helloabc
 ```
 
 ##### padBidirectional
+
 Pads a string with a specified fill string a certain number of times on both ends.
+
 ```js
 // Basic usage
 padBidirectional('hello', '*', {repeatCount: 2}); // '**hello**'
@@ -101,7 +106,9 @@ padBidirectional('example', '*', {repeatCount: 2, maxLen: 10, bias: PaddingBias.
 ```
 
 ### merge
+
 Merges an array of strings into a single string using a specified separator.
+
 ```js
 merge('-', 'apple', 'orange', 'banana'); // 'apple-orange-banana'
 
@@ -111,7 +118,9 @@ merge(false, 'apple', 'orange', 'banana'); // 'appleorangebanana'
 ```
 
 ### compare
+
 Performs a strict comparison between two strings.
+
 ```js
 compare("hello", "hello"); // true
 
@@ -119,7 +128,9 @@ compare("abc", "ABC"); // false
 ```
 
 ### looseCompare
+
 Performs a case-insensitive loose comparison between two strings.
+
 ```js
 looseCompare("hello", "HELLO"); // true
 
@@ -127,7 +138,9 @@ looseCompare('abc', '123'); // false
 ```
 
 ### capitalizeInitial
+
 Capitalizes the first letter of a word in a string.
+
 ```js
 capitalizeInitial('hello'); // 'Hello'
 
@@ -135,7 +148,9 @@ capitalizeInitial(':> hello');  // ':> Hello'
 ```
 
 ### capitalizeWords
+
 Capitalizes the first letter of each word in a given string.
+
 ```js
 capitalizeWords('hello world'); // 'Hello World'
 
@@ -145,7 +160,9 @@ capitalizeWords('Sphinx of black quartz:-judge my vow'); // 'Sphinx Of Black Qua
 ### Case Conversion
 
 #### snakeCase
+
 Converts a string to snake_case format.
+
 ```js
 snakeCase('hello WorLd'); // 'hello_world'
 snakeCase('from-kebab-case'); // 'from_kebab_case'
@@ -153,7 +170,9 @@ snakeCase('snake Case With Numbers123', true); // 'snake_case_with_numbers_one_t
 ```
 
 #### kebabCase
+
 Converts a string to kebab-case format.
+
 ```js
 kebabCase('h3llo WoRld'); // 'h3llo-world'
 kebabCase('from_snake_case'); // 'from-snake-case'
@@ -161,7 +180,9 @@ kebabCase('kebab Case With Numbers123', true); // 'kebab-case-with-numbers-one-t
 ```
 
 #### camelCase
+
 Converts a string to camelCase format.
+
 ```js
 camelCase('hello WoRld'); // 'helloWorld'
 camelCase('Test CaSe ExamplE'); // 'testCaseExample'
@@ -169,7 +190,9 @@ camelCase('camel Case With Numbers123'); // 'camelCaseWithNumbers'
 ```
 
 #### pascalCase
+
 Converts a string to PascalCase format.
+
 ```js
 pascalCase('hello WoRld'); // 'HelloWorld'
 pascalCase('Test CaSe ExamplE'); // 'TestCaseExample'
@@ -179,7 +202,9 @@ pascalCase('pasCal Case With Numbers123'); // 'PascalCaseWithNumbers'
 ### Case Validation
 
 #### isSnakeCase
+
 Checks if a string is in snake_case format.
+
 ```js
 // Valid
 isSnakeCase('snake_case_example'); // true
@@ -196,7 +221,9 @@ isSnakeCase('no_CAPS'); // false
 ```
 
 #### isKebabCase
+
 Checks if a string is in kebab-case format.
+
 ```js
 // Valid
 isKebabCase('kebab-case-example'); // true
@@ -213,7 +240,9 @@ isKebabCase('no-CAPS'); // false
 ```
 
 #### isCamelCase
+
 Checks if a string is in camelCase format.
+
 ```js
 // Valid
 isCamelCase('camelCaseExample'); // true
@@ -226,7 +255,9 @@ isCamelCase('withThe1234'); // false
 ```
 
 #### isPascalCase
+
 Checks if a string is in PascalCase format.
+
 ```js
 // Valid
 isPascalCase('PascalCaseExample'); // true
@@ -239,7 +270,9 @@ isPascalCase('WithThe1234'); // false
 ```
 
 ### regionMatch
+
 Compares two strings or regions for equality.
+
 ```js
 // Matching identical strings
 regionMatch('hello', 'hello'); // true
@@ -256,7 +289,9 @@ regionMatch('hello world', 'hello there', 6, 11); // false
 ```
 
 ### looseRegionMatch
+
 Performs a loose comparison of two strings or regions for equality.
+
 ```js
 // Loose matching identical strings
 looseRegionMatch('hello', 'HeLLo'); // true
@@ -268,29 +303,39 @@ looseRegionMatch(str1, str2); // true
 ```
 
 ### isAlpha
+
 Checks if a string contains only alphabetic characters (A-Z, a-z).
+
 ```js
 isAlpha("HelloWorld"); // true
 isAlpha("Hello123"); // false
 ```
 
 ### isAlphaNumeric
+
 Checks if a string contains only alphanumeric characters (A-Z, a-z, 0-9).
+
 ```js
 isAlphaNumeric("Hello01"); // true
 isAlphaNumeric("1234567890"); // false
 ```
 
 ### Reverse
+
 Reverses the sequence of characters in given string.
+
 ```js
 reverse('bad') // 'dab'
 ```
 
+Full documentation [here](https://full-pack.github.io/string-pack)
+
 ## Build
+
 ```
 npm run build
 ```
 
 ## License
+
 The MIT License. Full License is [here](LICENSE)

@@ -1,6 +1,6 @@
 {
   "name": "@full-pack/string-pack",
-  "version": "0.8.1",
+  "version": "1.0.0",
   "description": "A lightweight and versatile String Utility Package for Node.js & Browser.",
   "type": "module",
   "main": "./dist/index.js",
